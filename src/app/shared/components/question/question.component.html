@@ -6,5 +6,8 @@
     [innerHTML]="answer"
     (click)="onChooseAnswer(answer)"
     [class.active]="currentAnswer === answer"
+    [class.btn-outline-warning]="
+      checkAnswers && currentAnswer !== quiz.currentAnswer
+    "
   ></button>
 </div>

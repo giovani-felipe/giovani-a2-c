@@ -15,7 +15,7 @@ export class QuestionComponent {
 
   @Input({ required: true }) quiz!: Quiz;
   @Output() chooseAnswerEvent = new EventEmitter<Answer>();
-  @Input() checkAnswers = false;
+  @Input() checkAnswers = true;
 
   constructor() {}
 

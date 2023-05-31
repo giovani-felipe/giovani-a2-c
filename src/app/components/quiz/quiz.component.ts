@@ -5,7 +5,7 @@ import { Quiz, QuizDifficulty } from '../../models/quiz';
 import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
 import { FormsModule } from '@angular/forms';
-import { QuestionComponent } from '../../shared/components/quiz-list/question.component';
+import { QuestionComponent } from '../../shared/components/question/question.component';
 import { QuizStorageService } from '../../services/quiz-storage.service';
 import { Answer } from '../../models/answer';
 
@@ -19,6 +19,8 @@ import { Answer } from '../../models/answer';
 })
 export class QuizComponent implements OnInit {
   QuizDifficulty = QuizDifficulty;
+
+  showSubmit = false;
 
   categoryId: number = 0;
   difficulty?: QuizDifficulty;
