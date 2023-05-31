@@ -8,7 +8,7 @@
       [(ngModel)]="categoryId"
       required
     >
-      <option value="0" disabled>Select a category</option>
+      <option value="undefined" disabled>Select a category</option>
       <option *ngFor="let category of categories | async" [value]="category.id">
         {{ category.name }}
       </option>
@@ -42,6 +42,6 @@
   [quiz]="quiz"
   (chooseAnswerEvent)="saveAnswer($event)"
 ></app-question>
-<div>
-  <button class="btn btn-secondary">Submit</button>
+<div class="d-grid mt-3">
+  <a class="btn btn-secondary" [routerLink]="['/result']">Submit</a>
 </div>

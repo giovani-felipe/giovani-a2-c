@@ -5,9 +5,13 @@
     *ngFor="let answer of quiz.answers"
     [innerHTML]="answer"
     (click)="onChooseAnswer(answer)"
-    [class.active]="currentAnswer === answer"
-    [class.btn-outline-warning]="
-      checkAnswers && currentAnswer !== quiz.currentAnswer
+    [class.active]="
+      currentAnswer === answer || (checkAnswers && quiz.correctAnswer == answer)
+    "
+    [class.btn-outline-danger]="
+      checkAnswers &&
+      currentAnswer !== quiz.correctAnswer &&
+      currentAnswer === answer
     "
   ></button>
 </div>

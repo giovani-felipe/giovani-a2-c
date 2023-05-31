@@ -1,3 +1,9 @@
-<p>
-quiz-result works!
-</p>
+<h1 class="text-center">Results</h1>
+<app-question
+  *ngFor="let quiz of quizzes"
+  [quiz]="quiz"
+  [checkAnswers]="true"
+></app-question>
+<div class="d-grid mt-3">
+  <a class="btn btn-secondary" [routerLink]="['/']">Create a new quiz</a>
+</div>

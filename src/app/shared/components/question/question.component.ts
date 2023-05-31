@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Answer } from '../../../models/answer';
 import { Quiz } from '../../../models/quiz';
 
@@ -10,17 +10,23 @@ import { Quiz } from '../../../models/quiz';
   imports: [CommonModule, NgFor],
   standalone: true,
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnInit {
   currentAnswer: string = '';
 
   @Input({ required: true }) quiz!: Quiz;
   @Output() chooseAnswerEvent = new EventEmitter<Answer>();
-  @Input() checkAnswers = true;
+  @Input() checkAnswers = false;
 
   constructor() {}
 
+  ngOnInit(): void {
+    if (this.checkAnswers) this.currentAnswer = this.quiz?.currentAnswer ?? '';
+  }
+
   onChooseAnswer(option: string) {
-    this.currentAnswer = option;
-    this.chooseAnswerEvent.emit({ question: this.quiz.question, option });
+    if (!this.checkAnswers) {
+      this.currentAnswer = option;
+      this.chooseAnswerEvent.emit({ question: this.quiz.question, option });
+    }
   }
 }

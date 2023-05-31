@@ -8,12 +8,19 @@ import { FormsModule } from '@angular/forms';
 import { QuestionComponent } from '../../shared/components/question/question.component';
 import { QuizStorageService } from '../../services/quiz-storage.service';
 import { Answer } from '../../models/answer';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
-  imports: [CommonModule, AsyncPipe, FormsModule, QuestionComponent],
+  imports: [
+    CommonModule,
+    AsyncPipe,
+    FormsModule,
+    RouterModule,
+    QuestionComponent,
+  ],
   providers: [QuizService, QuizStorageService],
   standalone: true,
 })
@@ -22,7 +29,7 @@ export class QuizComponent implements OnInit {
 
   showSubmit = false;
 
-  categoryId: number = 0;
+  categoryId?: number;
   difficulty?: QuizDifficulty;
 
   categories?: Observable<Category[]>;
@@ -38,20 +45,21 @@ export class QuizComponent implements OnInit {
   }
 
   public onCreate(): void {
-    this.quizzes = this.quizService
-      .getQuizzes(this.categoryId, this.difficulty ?? QuizDifficulty.EASY)
-      .pipe(
-        map((quizzes) => {
-          let newQuizzes = quizzes.map((quiz) => ({
-            ...quiz,
-            answers: this.sortAnswers(quiz.answers),
-          }));
+    if (this.categoryId)
+      this.quizzes = this.quizService
+        .getQuizzes(this.categoryId, this.difficulty ?? QuizDifficulty.EASY)
+        .pipe(
+          map((quizzes) => {
+            let newQuizzes = quizzes.map((quiz) => ({
+              ...quiz,
+              answers: this.sortAnswers(quiz.answers),
+            }));
 
-          this.storageService.save(newQuizzes);
+            this.storageService.save(newQuizzes);
 
-          return newQuizzes;
-        })
-      );
+            return newQuizzes;
+          })
+        );
   }
 
   public saveAnswer(answer: Answer) {
