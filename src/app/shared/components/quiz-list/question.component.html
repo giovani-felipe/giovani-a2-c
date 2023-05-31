@@ -1,8 +1,10 @@
-<p class="mt-3 mb-1" [innerHTML]="quiz?.question"></p>
+<p class="mt-3 mb-1" [innerHTML]="quiz.question"></p>
 <div>
   <button
     class="btn btn-outline-success mt-1 me-2"
-    *ngFor="let answer of answers"
+    *ngFor="let answer of quiz.answers"
     [innerHTML]="answer"
+    (click)="onChooseAnswer(answer)"
+    [class.active]="currentAnswer === answer"
   ></button>
 </div>

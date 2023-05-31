@@ -37,5 +37,8 @@
     </button>
   </div>
 </form>
-{{ quizzes | async | json }}
-<app-question *ngFor="let quiz of quizzes | async" [quiz]="quiz"></app-question>
+<app-question
+  *ngFor="let quiz of quizzes | async"
+  [quiz]="quiz"
+  (chooseAnswerEvent)="saveAnswer($event)"
+></app-question>

@@ -3,7 +3,7 @@ export type Quiz = {
   difficulty: QuizDifficulty;
   question: string;
   correctAnswer: string;
-  incorrectAnswers: string[];
+  answers: string[];
   currentAnswer?: string;
 };
 

@@ -7,7 +7,7 @@ export class QuizMapper {
     return {
       category: dto.category,
       correctAnswer: dto.correct_answer,
-      incorrectAnswers: dto.incorrect_answers,
+      answers: [...dto.incorrect_answers, dto.correct_answer],
       question: dto.question,
       difficulty: QuizDifficultyMapper.toModel(dto.difficulty),
     };

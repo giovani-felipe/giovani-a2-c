@@ -1,5 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Answer } from '../../../models/answer';
 import { Quiz } from '../../../models/quiz';
 
 @Component({
@@ -9,26 +10,17 @@ import { Quiz } from '../../../models/quiz';
   imports: [CommonModule, NgFor],
   standalone: true,
 })
-export class QuestionComponent implements OnInit {
-  @Input({ required: true }) quiz?: Quiz;
+export class QuestionComponent {
+  currentAnswer: string = '';
 
-  answers?: string[];
+  @Input({ required: true }) quiz!: Quiz;
+  @Output() chooseAnswerEvent = new EventEmitter<Answer>();
+  @Input() checkAnswers = false;
 
   constructor() {}
 
-  ngOnInit() {
-    if (this.quiz?.incorrectAnswers)
-      this.answers = this.sortAnswers([
-        ...this.quiz?.incorrectAnswers,
-        this.quiz?.correctAnswer,
-      ]);
-  }
-
-  private sortAnswers(answers: string[]): string[] {
-    let random = Math.round((Math.random() - 0.5) * 2);
-    console.log(random);
-    return answers.sort((a, b) => {
-      return random;
-    });
+  onChooseAnswer(option: string) {
+    this.currentAnswer = option;
+    this.chooseAnswerEvent.emit({ question: this.quiz.question, option });
   }
 }
