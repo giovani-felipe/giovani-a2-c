@@ -9,6 +9,8 @@
   <select class="form-select" name="difficulty" id="categorySelect" ngModel>
     <option value="" disabled>Select difficulty</option>
     <option [value]="QuizType.EASY">{{ QuizType.EASY }}</option>
+    <option [value]="QuizType.MEDIUM">{{ QuizType.MEDIUM }}</option>
+    <option [value]="QuizType.HARD">{{ QuizType.HARD }}</option>
   </select>
   <button type="button" class="btn btn-light border">Create</button>
 </div>
