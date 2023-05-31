@@ -1,0 +1,14 @@
+<h1 class="text-center">Quiz Maker</h1>
+<div class="input-group">
+  <select class="form-select" name="category" id="categorySelect" ngModel>
+    <option value="" disabled>Select a category</option>
+    <option *ngFor="let category of categories | async" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+  <select class="form-select" name="difficulty" id="categorySelect" ngModel>
+    <option value="" disabled>Select difficulty</option>
+    <option [value]="QuizType.EASY">{{ QuizType.EASY }}</option>
+  </select>
+  <button type="button" class="btn btn-light border">Create</button>
+</div>
