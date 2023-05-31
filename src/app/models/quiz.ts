@@ -4,6 +4,7 @@ export type Quiz = {
   question: string;
   correctAnswer: string;
   incorrectAnswers: string[];
+  currentAnswer?: string;
 };
 
 export enum QuizDifficulty {

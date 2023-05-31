@@ -37,8 +37,5 @@
     </button>
   </div>
 </form>
-
-<app-quiz-list
-  *ngFor="let quiz of quizzes | async"
-  [quiz]="quiz"
-></app-quiz-list>
+{{ quizzes | async | json }}
+<app-question *ngFor="let quiz of quizzes | async" [quiz]="quiz"></app-question>

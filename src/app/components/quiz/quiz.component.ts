@@ -5,13 +5,13 @@ import { Quiz, QuizDifficulty } from '../../models/quiz';
 import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
 import { FormsModule } from '@angular/forms';
-import { QuizListComponent } from '../../shared/components/quiz-list/quiz-list.component';
+import { QuestionComponent } from '../../shared/components/quiz-list/question.component';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
-  imports: [CommonModule, AsyncPipe, FormsModule, QuizListComponent],
+  imports: [CommonModule, AsyncPipe, FormsModule, QuestionComponent],
   providers: [QuizService],
   standalone: true,
 })

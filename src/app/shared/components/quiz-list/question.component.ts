@@ -1,15 +1,15 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Quiz } from '../../../models/quiz';
 
 @Component({
-  selector: 'app-quiz-list',
-  templateUrl: './quiz-list.component.html',
-  styleUrls: ['./quiz-list.component.css'],
+  selector: 'app-question',
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.css'],
   imports: [CommonModule, NgFor],
   standalone: true,
 })
-export class QuizListComponent implements OnInit {
+export class QuestionComponent implements OnInit {
   @Input({ required: true }) quiz?: Quiz;
 
   answers?: string[];
