@@ -1,0 +1,8 @@
+<p class="mt-3 mb-1" [innerHTML]="quiz?.question"></p>
+<div>
+  <button
+    class="btn btn-outline-success mt-1 me-2"
+    *ngFor="let answer of answers"
+    [innerHTML]="answer"
+  ></button>
+</div>

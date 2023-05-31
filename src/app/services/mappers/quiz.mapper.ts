@@ -1,44 +1,43 @@
 import { Quiz } from '../../models/quiz';
-import { QuizType } from '../../models/quiz';
-import { QuizDTO, QuizTypeDTO } from '../dtos/quiz-response.dto';
+import { QuizDifficulty } from '../../models/quiz';
+import { QuizDTO, QuizDifficultyDTO } from '../dtos/quiz-response.dto';
 
 export class QuizMapper {
   static toModel(dto: QuizDTO): Quiz {
     return {
       category: dto.category,
-      correctAnswer: dto.correctAnswer,
-      description: dto.description,
-      incorrectAnswers: dto.incorrectAnswers,
+      correctAnswer: dto.correct_answer,
+      incorrectAnswers: dto.incorrect_answers,
       question: dto.question,
-      type: QuizTypeMapper.toModel(dto.type),
+      difficulty: QuizDifficultyMapper.toModel(dto.difficulty),
     };
   }
 }
 
-export class QuizTypeMapper {
-  static toModel(dto: QuizTypeDTO): QuizType {
+export class QuizDifficultyMapper {
+  static toModel(dto: QuizDifficultyDTO): QuizDifficulty {
     switch (dto) {
-      case QuizTypeDTO.EASY:
-        return QuizType.EASY;
-      case QuizTypeDTO.MEDIUM:
-        return QuizType.MEDIUM;
-      case QuizTypeDTO.HARD:
-        return QuizType.HARD;
+      case QuizDifficultyDTO.EASY:
+        return QuizDifficulty.EASY;
+      case QuizDifficultyDTO.MEDIUM:
+        return QuizDifficulty.MEDIUM;
+      case QuizDifficultyDTO.HARD:
+        return QuizDifficulty.HARD;
       default:
-        throw new Error(`QuizType not found: ${dto}`);
+        throw new Error(`QuizDifficulty not found: ${dto}`);
     }
   }
 
-  static toDto(model: QuizType): QuizTypeDTO {
+  static toDto(model: QuizDifficulty): QuizDifficultyDTO {
     switch (model) {
-      case QuizType.EASY:
-        return QuizTypeDTO.EASY;
-      case QuizType.MEDIUM:
-        return QuizTypeDTO.MEDIUM;
-      case QuizType.HARD:
-        return QuizTypeDTO.HARD;
+      case QuizDifficulty.EASY:
+        return QuizDifficultyDTO.EASY;
+      case QuizDifficulty.MEDIUM:
+        return QuizDifficultyDTO.MEDIUM;
+      case QuizDifficulty.HARD:
+        return QuizDifficultyDTO.HARD;
       default:
-        throw new Error(`QuizTypeDTO not found: ${model}`);
+        throw new Error(`QuizDifficultyDTO not found: ${model}`);
     }
   }
 }

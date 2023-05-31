@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Category } from '../models/category';
 import { Quiz } from '../models/quiz';
-import { QuizType } from '../models/quiz';
+import { QuizDifficulty } from '../models/quiz';
 import { CategoryResponseDTO } from './dtos/category-response.dto';
 import { QuizResponseDTO } from './dtos/quiz-response.dto';
 import { CategoryMapper } from './mappers/category.mapper';
-import { QuizMapper, QuizTypeMapper } from './mappers/quiz.mapper';
+import { QuizMapper, QuizDifficultyMapper } from './mappers/quiz.mapper';
 
 const URL = 'https://opentdb.com';
 
@@ -27,13 +27,13 @@ export class QuizService {
 
   getQuizzes(
     categoryId: number,
-    difficulty: QuizType,
+    difficulty: QuizDifficulty,
     amount: number = 5,
     type: string = 'multiple'
   ): Observable<Quiz[]> {
     let params = new HttpParams()
       .append('category', categoryId)
-      .append('difficulty', QuizTypeMapper.toDto(difficulty))
+      .append('difficulty', QuizDifficultyMapper.toDto(difficulty))
       .append('amount', amount)
       .append('type', type);
 

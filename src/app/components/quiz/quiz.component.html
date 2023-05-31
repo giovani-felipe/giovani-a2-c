@@ -1,16 +1,44 @@
 <h1 class="text-center">Quiz Maker</h1>
-<div class="input-group">
-  <select class="form-select" name="category" id="categorySelect" ngModel>
-    <option value="" disabled>Select a category</option>
-    <option *ngFor="let category of categories | async" [value]="category.id">
-      {{ category.name }}
-    </option>
-  </select>
-  <select class="form-select" name="difficulty" id="categorySelect" ngModel>
-    <option value="" disabled>Select difficulty</option>
-    <option [value]="QuizType.EASY">{{ QuizType.EASY }}</option>
-    <option [value]="QuizType.MEDIUM">{{ QuizType.MEDIUM }}</option>
-    <option [value]="QuizType.HARD">{{ QuizType.HARD }}</option>
-  </select>
-  <button type="button" class="btn btn-light border">Create</button>
-</div>
+<form #quizForm="ngForm" (ngSubmit)="onCreate()" novalidate>
+  <div class="input-group">
+    <select
+      class="form-select"
+      name="category"
+      id="categorySelect"
+      [(ngModel)]="categoryId"
+      required
+    >
+      <option value="0" disabled>Select a category</option>
+      <option *ngFor="let category of categories | async" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+    <select
+      class="form-select text-capitalize"
+      name="difficulty"
+      id="difficultySelect"
+      [(ngModel)]="difficulty"
+      required
+    >
+      <option value="undefined" disabled>Select difficulty</option>
+      <option [value]="QuizDifficulty.EASY">{{ QuizDifficulty.EASY }}</option>
+      <option [value]="QuizDifficulty.MEDIUM">
+        {{ QuizDifficulty.MEDIUM }}
+      </option>
+      <option [value]="QuizDifficulty.HARD">{{ QuizDifficulty.HARD }}</option>
+    </select>
+    <button
+      type="submit"
+      class="btn btn-light border"
+      id="createBtn"
+      [disabled]="quizForm.invalid"
+    >
+      Create
+    </button>
+  </div>
+</form>
+
+<app-quiz-list
+  *ngFor="let quiz of quizzes | async"
+  [quiz]="quiz"
+></app-quiz-list>

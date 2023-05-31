@@ -1,13 +1,12 @@
 export type Quiz = {
   category: string;
-  type: QuizType;
+  difficulty: QuizDifficulty;
   question: string;
-  description: string;
   correctAnswer: string;
   incorrectAnswers: string[];
 };
 
-export enum QuizType {
+export enum QuizDifficulty {
   EASY = 'easy',
   MEDIUM = 'medium',
   HARD = 'hard',
