@@ -42,6 +42,6 @@
   [quiz]="quiz"
   (chooseAnswerEvent)="saveAnswer($event)"
 ></app-question>
-<div class="d-grid mt-3">
+<div class="d-grid my-3" *ngIf="showSubmit">
   <a class="btn btn-secondary" [routerLink]="['/result']">Submit</a>
 </div>

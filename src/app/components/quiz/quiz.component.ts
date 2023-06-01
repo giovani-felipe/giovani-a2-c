@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Quiz, QuizDifficulty } from '../../models/quiz';
@@ -15,7 +15,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
   imports: [
-    CommonModule,
+    NgFor,
+    NgIf,
     AsyncPipe,
     FormsModule,
     RouterModule,
@@ -42,9 +43,12 @@ export class QuizComponent implements OnInit {
 
   public ngOnInit(): void {
     this.categories = this.quizService.getCategories();
+    this.storageService.clear();
   }
 
   public onCreate(): void {
+    this.showSubmit = false;
+
     if (this.categoryId)
       this.quizzes = this.quizService
         .getQuizzes(this.categoryId, this.difficulty ?? QuizDifficulty.EASY)
@@ -63,13 +67,21 @@ export class QuizComponent implements OnInit {
   }
 
   public saveAnswer(answer: Answer) {
-    let quizzes = this.storageService.getData();
+    let storageQuizzes = this.storageService.getData() ?? [];
 
-    let quiz = quizzes.find((q) => q.question === answer.question);
+    let quiz = storageQuizzes.find((q) => q.question === answer.question);
 
     if (quiz) quiz.currentAnswer = answer.option;
 
-    this.storageService.save(quizzes);
+    this.storageService.save(storageQuizzes);
+
+    let showSubmit = true;
+
+    storageQuizzes.forEach((q) => {
+      if (!q.currentAnswer) showSubmit = false;
+    });
+
+    this.showSubmit = showSubmit;
   }
 
   private sortAnswers(answers: string[]): string[] {

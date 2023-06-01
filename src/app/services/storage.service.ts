@@ -5,7 +5,7 @@ export abstract class StorageService<T> {
     localStorage.setItem(this.key, JSON.stringify(value));
   }
 
-  public getData(): T {
+  public getData(): T | null {
     let model = localStorage.getItem(this.key);
     return model ? JSON.parse(model) : null;
   }

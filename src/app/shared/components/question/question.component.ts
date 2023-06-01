@@ -1,4 +1,4 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Answer } from '../../../models/answer';
 import { Quiz } from '../../../models/quiz';
@@ -7,7 +7,7 @@ import { Quiz } from '../../../models/quiz';
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css'],
-  imports: [CommonModule, NgFor],
+  imports: [NgFor],
   standalone: true,
 })
 export class QuestionComponent implements OnInit {
