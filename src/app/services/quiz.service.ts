@@ -2,12 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Category } from '../models/category';
-import { Quiz } from '../models/quiz';
-import { QuizDifficulty } from '../models/quiz';
+import { Question, QuestionDifficulty } from '../models/question';
 import { CategoryResponseDTO } from './dtos/category-response.dto';
-import { QuizResponseDTO } from './dtos/quiz-response.dto';
+import { QuizResponseDTO } from './dtos/question-response.dto';
 import { CategoryMapper } from './mappers/category.mapper';
-import { QuizMapper, QuizDifficultyMapper } from './mappers/quiz.mapper';
+import {
+  QuestionDifficultyMapper,
+  QuestionMapper,
+} from './mappers/question.mapper';
 
 const URL = 'https://opentdb.com';
 
@@ -25,15 +27,15 @@ export class QuizService {
       );
   }
 
-  getQuestion(
+  getQuestions(
     categoryId: number,
-    difficulty: QuizDifficulty,
+    difficulty: QuestionDifficulty,
     amount: number = 5,
     type: string = 'multiple'
-  ): Observable<Quiz[]> {
+  ): Observable<Question[]> {
     let params = new HttpParams()
       .append('category', categoryId)
-      .append('difficulty', QuizDifficultyMapper.toDto(difficulty))
+      .append('difficulty', QuestionDifficultyMapper.toDto(difficulty))
       .append('amount', amount)
       .append('type', type);
 
@@ -41,7 +43,7 @@ export class QuizService {
       .get<QuizResponseDTO>(`${URL}/api.php`, { params })
       .pipe(
         map((quizResponseDto) =>
-          quizResponseDto.results.map(QuizMapper.toModel)
+          quizResponseDto.results.map(QuestionMapper.toModel)
         )
       );
   }

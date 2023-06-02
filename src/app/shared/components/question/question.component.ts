@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Quiz } from '../../../models/quiz';
+import { Question } from '../../../models/question';
 
 @Component({
   selector: 'app-question',
@@ -13,14 +13,15 @@ import { Quiz } from '../../../models/quiz';
 export class QuestionComponent implements OnInit {
   choosenAnswer: string = '';
 
-  @Input({ required: true }) quiz!: Quiz;
+  @Input({ required: true }) question!: Question;
   @Input() checkAnswers = false;
   @Input() answerFormControl?: FormControl<string>;
 
   constructor() {}
 
   ngOnInit(): void {
-    if (this.checkAnswers) this.choosenAnswer = this.quiz?.choosenAnswer ?? '';
+    if (this.checkAnswers)
+      this.choosenAnswer = this.question?.choosenAnswer ?? '';
   }
 
   onSelectAnswer(option: string) {

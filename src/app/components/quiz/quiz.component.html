@@ -27,11 +27,15 @@
       required
     >
       <option value="" disabled>Select difficulty</option>
-      <option [value]="QuizDifficulty.EASY">{{ QuizDifficulty.EASY }}</option>
-      <option [value]="QuizDifficulty.MEDIUM">
-        {{ QuizDifficulty.MEDIUM }}
+      <option [value]="QuestionDifficulty.EASY">
+        {{ QuestionDifficulty.EASY }}
       </option>
-      <option [value]="QuizDifficulty.HARD">{{ QuizDifficulty.HARD }}</option>
+      <option [value]="QuestionDifficulty.MEDIUM">
+        {{ QuestionDifficulty.MEDIUM }}
+      </option>
+      <option [value]="QuestionDifficulty.HARD">
+        {{ QuestionDifficulty.HARD }}
+      </option>
     </select>
     <button
       type="submit"
@@ -45,9 +49,9 @@
 </form>
 
 <app-question
-  *ngFor="let quiz of quizzes | async; index as i"
+  *ngFor="let question of questions | async; index as i"
   [answerFormControl]="questionFormArray.controls[i]"
-  [quiz]="quiz"
+  [question]="question"
 ></app-question>
 
 <div

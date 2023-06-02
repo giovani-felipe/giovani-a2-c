@@ -1,7 +1,7 @@
 <h1 class="text-center">Results</h1>
 <app-question
-  *ngFor="let quiz of quizzes"
-  [quiz]="quiz"
+  *ngFor="let question of questions"
+  [question]="quiz"
   [checkAnswers]="true"
 ></app-question>
 <app-quiz-score [arrangements]="arrangements" [total]="total"></app-quiz-score>

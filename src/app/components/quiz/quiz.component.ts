@@ -1,7 +1,6 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Quiz, QuizDifficulty } from '../../models/quiz';
 import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
 import {
@@ -16,6 +15,7 @@ import { QuestionComponent } from '../../shared/components/question/question.com
 import { QuizStorageService } from '../../services/quiz-storage.service';
 import { RouterModule } from '@angular/router';
 import { QuizForm } from './quiz.form';
+import { Question, QuestionDifficulty } from '../../models/question';
 
 @Component({
   selector: 'app-quiz',
@@ -33,12 +33,12 @@ import { QuizForm } from './quiz.form';
   standalone: true,
 })
 export class QuizComponent implements OnInit, OnDestroy {
-  QuizDifficulty = QuizDifficulty;
+  QuestionDifficulty = QuestionDifficulty;
 
   questionFormArray: FormArray<FormControl<string>>;
 
   categories?: Observable<Category[]>;
-  quizzes?: Observable<Quiz[]>;
+  questions?: Observable<Question[]>;
 
   constructor(
     private readonly quizService: QuizService,
@@ -69,8 +69,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     let { category, difficulty } = quizForm.value as QuizForm;
     this.questionFormArray.clear();
     if (category)
-      this.quizzes = this.quizService
-        .getQuizzes(category, difficulty ?? QuizDifficulty.EASY)
+      this.questions = this.quizService
+        .getQuestions(category, difficulty ?? QuestionDifficulty.EASY)
         .pipe(
           map((quizzes) => {
             let newQuizzes = quizzes.map((quiz, index) => {

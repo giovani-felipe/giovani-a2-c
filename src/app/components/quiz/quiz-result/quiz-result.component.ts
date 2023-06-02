@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionComponent } from '../../../shared/components/question/question.component';
 import { QuizStorageService } from '../../../services/quiz-storage.service';
 import { RouterModule } from '@angular/router';
-import { Quiz } from '../../../models/quiz';
 import { NgFor } from '@angular/common';
 import { QuizScoreComponent } from '../../../shared/components/quiz-score/quiz-score.component';
+import { Question } from '../../../models/question';
 
 @Component({
   selector: 'app-quiz-result',
@@ -15,18 +15,18 @@ import { QuizScoreComponent } from '../../../shared/components/quiz-score/quiz-s
   standalone: true,
 })
 export class QuizResultComponent implements OnInit {
-  quizzes: Quiz[] = [];
+  questions: Question[] = [];
   total: number = 0;
   arrangements: number = 0;
 
   constructor(private readonly storeService: QuizStorageService) {}
 
   ngOnInit() {
-    this.quizzes = this.storeService.getData() ?? [];
+    this.questions = this.storeService.getData() ?? [];
 
-    this.total = this.quizzes.length;
+    this.total = this.questions.length;
 
-    this.quizzes.forEach((q) => {
+    this.questions.forEach((q) => {
       if (q.correctAnswer === q.choosenAnswer) this.arrangements++;
     });
   }

@@ -1,12 +1,12 @@
-export type QuizDTO = {
+export type QuestionDTO = {
   category: string;
-  difficulty: QuizDifficultyDTO;
+  difficulty: QuestionDifficultyDTO;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
 };
 
-export enum QuizDifficultyDTO {
+export enum QuestionDifficultyDTO {
   EASY = 'easy',
   MEDIUM = 'medium',
   HARD = 'hard',
@@ -14,5 +14,5 @@ export enum QuizDifficultyDTO {
 
 export type QuizResponseDTO = {
   response_code: number;
-  results: QuizDTO[];
+  results: QuestionDTO[];
 };

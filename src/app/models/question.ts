@@ -1,14 +1,14 @@
-export type Quiz = {
+export type Question = {
   id?: number;
   category: string;
-  difficulty: QuizDifficulty;
+  difficulty: QuestionDifficulty;
   question: string;
   correctAnswer: string;
   answers: string[];
   choosenAnswer?: string;
 };
 
-export enum QuizDifficulty {
+export enum QuestionDifficulty {
   EASY = 'easy',
   MEDIUM = 'medium',
   HARD = 'hard',
