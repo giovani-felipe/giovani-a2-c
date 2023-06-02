@@ -24,7 +24,28 @@ export class QuestionComponent implements OnInit {
       this.choosenAnswer = this.question?.choosenAnswer ?? '';
   }
 
-  onSelectAnswer(option: string) {
-    if (this.answerFormControl) this.answerFormControl.setValue(option);
+  public onSelectAnswer(option: string): void {
+    if (!this.checkAnswers && this.answerFormControl)
+      this.answerFormControl.setValue(option);
+  }
+
+  checkStatus(answer: string): string {
+    let btnClass = '',
+      btnActive = '';
+
+    btnClass =
+      this.checkAnswers &&
+      this.choosenAnswer !== this.question.correctAnswer &&
+      this.choosenAnswer === answer
+        ? 'btn-outline-danger'
+        : 'btn-outline-success';
+
+    btnActive =
+      this.choosenAnswer === answer ||
+      (this.checkAnswers && this.question.correctAnswer == answer)
+        ? 'active'
+        : '';
+
+    return `${btnClass} ${btnActive}`;
   }
 }

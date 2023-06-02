@@ -6,23 +6,14 @@
       class="btn-check"
       [name]="'answer_' + question.id"
       [id]="'answer_' + question.id + '_' + i"
-      formControlName="answerFormControl"
       autocomplete="off"
     />
     <label
-      class="btn btn-outline-success mt-1"
+      class="btn mt-1"
       [for]="'answer_' + question.id + '_' + i"
       (click)="onSelectAnswer(answer)"
       [innerHTML]="answer"
-      [class.active]="
-        choosenAnswer === answer ||
-        (checkAnswers && question.correctAnswer == answer)
-      "
-      [class.btn-outline-danger]="
-        checkAnswers &&
-        choosenAnswer !== question.correctAnswer &&
-        choosenAnswer === answer
-      "
+      [class]="checkStatus(answer)"
     ></label>
   </span>
 </div>
