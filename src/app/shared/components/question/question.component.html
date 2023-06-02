@@ -8,7 +8,8 @@
       [ngClass]="{
         'btn-outline-danger': checkStatus(answer),
         'btn-outline-success': !checkStatus(answer),
-        active: shouldBeChecked(answer)
+        active: shouldBeChecked(answer),
+        'hover-disable': !shouldBeChecked(answer)
       }"
     ></span>
     <ng-template #elseBlock>
