@@ -25,7 +25,7 @@ export class QuizService {
       );
   }
 
-  getQuizzes(
+  getQuestion(
     categoryId: number,
     difficulty: QuizDifficulty,
     amount: number = 5,

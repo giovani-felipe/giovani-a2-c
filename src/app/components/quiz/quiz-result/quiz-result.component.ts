@@ -27,7 +27,7 @@ export class QuizResultComponent implements OnInit {
     this.total = this.quizzes.length;
 
     this.quizzes.forEach((q) => {
-      if (q.correctAnswer === q.currentAnswer) this.arrangements++;
+      if (q.correctAnswer === q.choosenAnswer) this.arrangements++;
     });
   }
 }

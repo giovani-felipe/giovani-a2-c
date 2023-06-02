@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Quiz, QuizDifficulty } from '../../models/quiz';
@@ -24,7 +24,6 @@ import { QuizForm } from './quiz.form';
   imports: [
     NgFor,
     NgIf,
-    JsonPipe,
     AsyncPipe,
     FormsModule,
     RouterModule,
@@ -50,8 +49,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.categories = this.quizService.getCategories();
     this.storageService.clear();
+    this.categories = this.quizService.getCategories();
   }
 
   public ngOnDestroy(): void {
@@ -60,7 +59,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.questionFormArray.controls.forEach((question, index) => {
       let quiz = storageQuizzes[index];
 
-      if (quiz) quiz.currentAnswer = question.value;
+      if (quiz) quiz.choosenAnswer = question.value;
     });
 
     this.storageService.save(storageQuizzes);

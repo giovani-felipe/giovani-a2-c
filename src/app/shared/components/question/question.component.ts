@@ -11,7 +11,7 @@ import { Quiz } from '../../../models/quiz';
   standalone: true,
 })
 export class QuestionComponent implements OnInit {
-  currentAnswer: string = '';
+  choosenAnswer: string = '';
 
   @Input({ required: true }) quiz!: Quiz;
   @Input() checkAnswers = false;
@@ -20,7 +20,7 @@ export class QuestionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.checkAnswers) this.currentAnswer = this.quiz?.currentAnswer ?? '';
+    if (this.checkAnswers) this.choosenAnswer = this.quiz?.choosenAnswer ?? '';
   }
 
   onSelectAnswer(option: string) {

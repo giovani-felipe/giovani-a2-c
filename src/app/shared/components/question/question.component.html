@@ -15,13 +15,13 @@
       (click)="onSelectAnswer(answer)"
       [innerHTML]="answer"
       [class.active]="
-        currentAnswer === answer ||
+        choosenAnswer === answer ||
         (checkAnswers && quiz.correctAnswer == answer)
       "
       [class.btn-outline-danger]="
         checkAnswers &&
-        currentAnswer !== quiz.correctAnswer &&
-        currentAnswer === answer
+        choosenAnswer !== quiz.correctAnswer &&
+        choosenAnswer === answer
       "
     ></label>
   </span>

@@ -5,7 +5,7 @@ export type Quiz = {
   question: string;
   correctAnswer: string;
   answers: string[];
-  currentAnswer?: string;
+  choosenAnswer?: string;
 };
 
 export enum QuizDifficulty {
