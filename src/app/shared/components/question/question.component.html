@@ -4,23 +4,23 @@
     <input
       type="radio"
       class="btn-check"
-      [name]="'answer_' + quiz.id"
-      [id]="'answer_' + quiz.id + '_' + i"
+      [name]="'answer_' + question.id"
+      [id]="'answer_' + question.id + '_' + i"
       formControlName="answerFormControl"
       autocomplete="off"
     />
     <label
       class="btn btn-outline-success mt-1"
-      [for]="'answer_' + quiz.id + '_' + i"
+      [for]="'answer_' + question.id + '_' + i"
       (click)="onSelectAnswer(answer)"
       [innerHTML]="answer"
       [class.active]="
         choosenAnswer === answer ||
-        (checkAnswers && quiz.correctAnswer == answer)
+        (checkAnswers && question.correctAnswer == answer)
       "
       [class.btn-outline-danger]="
         checkAnswers &&
-        choosenAnswer !== quiz.correctAnswer &&
+        choosenAnswer !== question.correctAnswer &&
         choosenAnswer === answer
       "
     ></label>

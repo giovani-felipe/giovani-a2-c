@@ -1,6 +1,6 @@
-import { QuizDifficulty } from '../../models/quiz';
+import { QuestionDifficulty } from '../../models/question';
 
 export type QuizForm = {
   category: number;
-  difficulty: QuizDifficulty;
+  difficulty: QuestionDifficulty;
 };
