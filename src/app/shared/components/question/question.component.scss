@@ -1,7 +1,3 @@
-.btn:hover {
-  cursor: default;
-  &:not(.active) {
-    color: var(--bs-btn-color);
-    background-color: unset;
-  }
+.btn:is(span):hover {
+  background-color: currentColor;
 }

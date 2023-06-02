@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Question } from '../../../models/question';
@@ -7,7 +7,7 @@ import { Question } from '../../../models/question';
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, NgClass],
   standalone: true,
 })
 export class QuestionComponent implements OnInit {
@@ -29,15 +29,15 @@ export class QuestionComponent implements OnInit {
       this.answerFormControl.setValue(option);
   }
 
-  checkStatus(answer: string): string {
-    return this.checkAnswers &&
+  checkStatus(answer: string): boolean {
+    return (
+      this.checkAnswers &&
       this.choosenAnswer !== this.question.correctAnswer &&
       this.choosenAnswer === answer
-      ? 'btn-outline-danger'
-      : 'btn-outline-success';
+    );
   }
 
-  checkIfShouldBeChecked(answer: string): boolean {
+  shouldBeChecked(answer: string): boolean {
     return (
       this.choosenAnswer === answer ||
       (this.checkAnswers && this.question.correctAnswer == answer)
