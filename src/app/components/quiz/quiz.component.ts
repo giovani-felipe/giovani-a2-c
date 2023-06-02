@@ -78,7 +78,7 @@ export class QuizComponent implements OnInit, OnDestroy {
               this.questionFormArray.push(
                 new FormControl<string>('', {
                   nonNullable: true,
-                  validators: [Validators.required, Validators.minLength(0)],
+                  validators: [Validators.required],
                 })
               );
               return {
@@ -96,8 +96,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private sortAnswers(answers: string[]): string[] {
-    let random = Math.round((Math.random() - 0.5) * 2);
-    console.log(random);
     return answers.sort((a, b) => {
       return 0.5 - Math.random();
     });
