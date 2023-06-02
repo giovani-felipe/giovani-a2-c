@@ -97,8 +97,9 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private sortAnswers(answers: string[]): string[] {
     let random = Math.round((Math.random() - 0.5) * 2);
+    console.log(random);
     return answers.sort((a, b) => {
-      return random;
+      return 0.5 - Math.random();
     });
   }
 }

@@ -8,15 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class QuizScoreComponent implements OnInit {
   @Input({ required: true }) total!: number;
-  @Input({ required: true }) failures!: number;
+  @Input({ required: true }) arrangements!: number;
 
   constructor() {}
 
   ngOnInit() {}
 
   checkStatus() {
-    if (this.failures - this.total < 2) return 'bg-danger';
-    else if (this.failures - this.total < 4) return 'bg-warning';
+    if (this.arrangements < 2) return 'bg-danger';
+    else if (this.arrangements < 4) return 'bg-warning';
     else return 'bg-success';
   }
 }

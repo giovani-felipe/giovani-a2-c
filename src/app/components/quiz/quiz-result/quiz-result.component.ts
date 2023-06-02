@@ -17,7 +17,7 @@ import { QuizScoreComponent } from '../../../shared/components/quiz-score/quiz-s
 export class QuizResultComponent implements OnInit {
   quizzes: Quiz[] = [];
   total: number = 0;
-  failures: number = 0;
+  arrangements: number = 0;
 
   constructor(private readonly storeService: QuizStorageService) {}
 
@@ -27,7 +27,7 @@ export class QuizResultComponent implements OnInit {
     this.total = this.quizzes.length;
 
     this.quizzes.forEach((q) => {
-      if (q.correctAnswer !== q.currentAnswer) this.failures++;
+      if (q.correctAnswer === q.currentAnswer) this.arrangements++;
     });
   }
 }
