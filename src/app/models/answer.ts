@@ -1,4 +1,4 @@
 export type Answer = {
-  question: string;
+  questionId?: number;
   option: string;
 };

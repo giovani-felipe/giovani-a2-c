@@ -1,4 +1,5 @@
 export type Quiz = {
+  id?: number;
   category: string;
   difficulty: QuizDifficulty;
   question: string;

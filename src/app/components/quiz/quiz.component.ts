@@ -1,10 +1,16 @@
-import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Quiz, QuizDifficulty } from '../../models/quiz';
 import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormsModule,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { QuestionComponent } from '../../shared/components/question/question.component';
 import { QuizStorageService } from '../../services/quiz-storage.service';
 import { Answer } from '../../models/answer';
@@ -18,6 +24,7 @@ import { QuizForm } from './quiz.form';
   imports: [
     NgFor,
     NgIf,
+    JsonPipe,
     AsyncPipe,
     FormsModule,
     RouterModule,
@@ -26,10 +33,10 @@ import { QuizForm } from './quiz.form';
   providers: [QuizService, QuizStorageService],
   standalone: true,
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
   QuizDifficulty = QuizDifficulty;
 
-  showSubmit = false;
+  questionFormArray = new FormArray<FormControl<string>>([]);
 
   categories?: Observable<Category[]>;
   quizzes?: Observable<Quiz[]>;
@@ -44,9 +51,19 @@ export class QuizComponent implements OnInit {
     this.storageService.clear();
   }
 
-  public onCreate(quizForm: NgForm): void {
-    this.showSubmit = false;
+  public ngOnDestroy(): void {
+    let storageQuizzes = this.storageService.getData() ?? [];
 
+    this.questionFormArray.controls.forEach((question, index) => {
+      let quiz = storageQuizzes[index];
+
+      if (quiz) quiz.currentAnswer = question.value;
+    });
+
+    this.storageService.save(storageQuizzes);
+  }
+
+  public onCreate(quizForm: NgForm): void {
     let { category, difficulty } = quizForm.value as QuizForm;
 
     if (category)
@@ -54,34 +71,25 @@ export class QuizComponent implements OnInit {
         .getQuizzes(category, difficulty ?? QuizDifficulty.EASY)
         .pipe(
           map((quizzes) => {
-            let newQuizzes = quizzes.map((quiz) => ({
-              ...quiz,
-              answers: this.sortAnswers(quiz.answers),
-            }));
+            let newQuizzes = quizzes.map((quiz, index) => {
+              this.questionFormArray.push(
+                new FormControl<string>('', {
+                  nonNullable: true,
+                  validators: [Validators.required, Validators.minLength(0)],
+                })
+              );
+              return {
+                ...quiz,
+                id: index,
+                answers: this.sortAnswers(quiz.answers),
+              };
+            });
 
             this.storageService.save(newQuizzes);
 
             return newQuizzes;
           })
         );
-  }
-
-  public saveAnswer(answer: Answer) {
-    let storageQuizzes = this.storageService.getData() ?? [];
-
-    let quiz = storageQuizzes.find((q) => q.question === answer.question);
-
-    if (quiz) quiz.currentAnswer = answer.option;
-
-    this.storageService.save(storageQuizzes);
-
-    let showSubmit = true;
-
-    storageQuizzes.forEach((q) => {
-      if (!q.currentAnswer) showSubmit = false;
-    });
-
-    this.showSubmit = showSubmit;
   }
 
   private sortAnswers(answers: string[]): string[] {

@@ -43,11 +43,16 @@
     </button>
   </div>
 </form>
+
 <app-question
-  *ngFor="let quiz of quizzes | async"
+  *ngFor="let quiz of quizzes | async; index as i"
+  [answerFormControl]="questionFormArray.controls[i]"
   [quiz]="quiz"
-  (chooseAnswerEvent)="saveAnswer($event)"
 ></app-question>
-<div class="d-grid my-3" *ngIf="showSubmit">
+
+<div
+  class="d-grid my-3"
+  *ngIf="questionFormArray.controls.length > 0 && questionFormArray.valid"
+>
   <a class="btn btn-secondary" [routerLink]="['/result']">Submit</a>
 </div>

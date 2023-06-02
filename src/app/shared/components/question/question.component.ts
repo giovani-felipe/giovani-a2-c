@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Answer } from '../../../models/answer';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Quiz } from '../../../models/quiz';
 
 @Component({
@@ -14,8 +14,8 @@ export class QuestionComponent implements OnInit {
   currentAnswer: string = '';
 
   @Input({ required: true }) quiz!: Quiz;
-  @Output() chooseAnswerEvent = new EventEmitter<Answer>();
   @Input() checkAnswers = false;
+  @Input() answerFormControl?: FormControl<string>;
 
   constructor() {}
 
@@ -24,9 +24,6 @@ export class QuestionComponent implements OnInit {
   }
 
   onChooseAnswer(option: string) {
-    if (!this.checkAnswers) {
-      this.currentAnswer = option;
-      this.chooseAnswerEvent.emit({ question: this.quiz.question, option });
-    }
+    if (this.answerFormControl) this.answerFormControl.setValue(option);
   }
 }
