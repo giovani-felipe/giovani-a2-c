@@ -4,11 +4,12 @@ import { map, Observable } from 'rxjs';
 import { Quiz, QuizDifficulty } from '../../models/quiz';
 import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { QuestionComponent } from '../../shared/components/question/question.component';
 import { QuizStorageService } from '../../services/quiz-storage.service';
 import { Answer } from '../../models/answer';
 import { RouterModule } from '@angular/router';
+import { QuizForm } from './quiz.form';
 
 @Component({
   selector: 'app-quiz',
@@ -30,9 +31,6 @@ export class QuizComponent implements OnInit {
 
   showSubmit = false;
 
-  categoryId?: number;
-  difficulty?: QuizDifficulty;
-
   categories?: Observable<Category[]>;
   quizzes?: Observable<Quiz[]>;
 
@@ -46,12 +44,14 @@ export class QuizComponent implements OnInit {
     this.storageService.clear();
   }
 
-  public onCreate(): void {
+  public onCreate(quizForm: NgForm): void {
     this.showSubmit = false;
 
-    if (this.categoryId)
+    let { category, difficulty } = quizForm.value as QuizForm;
+
+    if (category)
       this.quizzes = this.quizService
-        .getQuizzes(this.categoryId, this.difficulty ?? QuizDifficulty.EASY)
+        .getQuizzes(category, difficulty ?? QuizDifficulty.EASY)
         .pipe(
           map((quizzes) => {
             let newQuizzes = quizzes.map((quiz) => ({

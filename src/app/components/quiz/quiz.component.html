@@ -1,14 +1,17 @@
 <h1 class="text-center">Quiz Maker</h1>
-<form #quizForm="ngForm" (ngSubmit)="onCreate()" novalidate>
+<form #quizForm="ngForm" (ngSubmit)="onCreate(quizForm)" novalidate>
   <div class="input-group">
     <select
       class="form-select"
       name="category"
       id="categorySelect"
-      [(ngModel)]="categoryId"
+      ngModel
+      #category="ngModel"
+      [class.is-valid]="category.valid"
+      [class.is-invalid]="category.touched && category.invalid"
       required
     >
-      <option value="undefined" disabled>Select a category</option>
+      <option value="" disabled>Select a category</option>
       <option *ngFor="let category of categories | async" [value]="category.id">
         {{ category.name }}
       </option>
@@ -17,10 +20,13 @@
       class="form-select text-capitalize"
       name="difficulty"
       id="difficultySelect"
-      [(ngModel)]="difficulty"
+      ngModel
+      #difficulty="ngModel"
+      [class.is-valid]="difficulty.valid"
+      [class.is-invalid]="difficulty.touched && difficulty.invalid"
       required
     >
-      <option value="undefined" disabled>Select difficulty</option>
+      <option value="" disabled>Select difficulty</option>
       <option [value]="QuizDifficulty.EASY">{{ QuizDifficulty.EASY }}</option>
       <option [value]="QuizDifficulty.MEDIUM">
         {{ QuizDifficulty.MEDIUM }}
