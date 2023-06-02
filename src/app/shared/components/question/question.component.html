@@ -12,7 +12,7 @@
     <label
       class="btn btn-outline-success mt-1"
       [for]="'answer_' + quiz.id + '_' + i"
-      (click)="onChooseAnswer(answer)"
+      (click)="onSelectAnswer(answer)"
       [innerHTML]="answer"
       [class.active]="
         currentAnswer === answer ||

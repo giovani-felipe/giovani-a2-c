@@ -23,7 +23,7 @@ export class QuestionComponent implements OnInit {
     if (this.checkAnswers) this.currentAnswer = this.quiz?.currentAnswer ?? '';
   }
 
-  onChooseAnswer(option: string) {
+  onSelectAnswer(option: string) {
     if (this.answerFormControl) this.answerFormControl.setValue(option);
   }
 }

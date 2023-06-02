@@ -6,6 +6,7 @@ import { Category } from '../../models/category';
 import { QuizService } from '../../services/quiz.service';
 import {
   FormArray,
+  FormBuilder,
   FormControl,
   FormsModule,
   NgForm,
@@ -13,7 +14,6 @@ import {
 } from '@angular/forms';
 import { QuestionComponent } from '../../shared/components/question/question.component';
 import { QuizStorageService } from '../../services/quiz-storage.service';
-import { Answer } from '../../models/answer';
 import { RouterModule } from '@angular/router';
 import { QuizForm } from './quiz.form';
 
@@ -36,15 +36,18 @@ import { QuizForm } from './quiz.form';
 export class QuizComponent implements OnInit, OnDestroy {
   QuizDifficulty = QuizDifficulty;
 
-  questionFormArray = new FormArray<FormControl<string>>([]);
+  questionFormArray: FormArray<FormControl<string>>;
 
   categories?: Observable<Category[]>;
   quizzes?: Observable<Quiz[]>;
 
   constructor(
     private readonly quizService: QuizService,
-    private readonly storageService: QuizStorageService
-  ) {}
+    private readonly storageService: QuizStorageService,
+    formBuilder: FormBuilder
+  ) {
+    this.questionFormArray = formBuilder.array<FormControl<string>>([]);
+  }
 
   public ngOnInit(): void {
     this.categories = this.quizService.getCategories();
@@ -65,7 +68,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public onCreate(quizForm: NgForm): void {
     let { category, difficulty } = quizForm.value as QuizForm;
-
+    this.questionFormArray.clear();
     if (category)
       this.quizzes = this.quizService
         .getQuizzes(category, difficulty ?? QuizDifficulty.EASY)
