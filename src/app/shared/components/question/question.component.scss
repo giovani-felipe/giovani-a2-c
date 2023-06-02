@@ -1,3 +1,7 @@
-.btn:hover:not(.active) {
-  background-color: unset;
+.btn:hover {
+  cursor: default;
+  &:not(.active) {
+    color: var(--bs-btn-color);
+    background-color: unset;
+  }
 }
