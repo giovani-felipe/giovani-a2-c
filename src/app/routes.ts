@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { QuizResultComponent } from './components/quiz/quiz-result/quiz-result.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 
 export const routes: Route[] = [
@@ -10,7 +9,10 @@ export const routes: Route[] = [
   },
   {
     path: 'result',
-    component: QuizResultComponent,
+    loadComponent: () =>
+      import('./components/quiz/quiz-result/quiz-result.component').then(
+        (c) => c.QuizResultComponent
+      ),
   },
   {
     path: '**',
